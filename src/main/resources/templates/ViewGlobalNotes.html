@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="Base::Layout(~{::title}, ~{::body})">
+<!-- <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{ Base::Layout(~{::title}, ~{::body}) }"> -->
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>viewGlobalNotes</title>
+</head>
+
+<body>
+
+	<section>
+
+		<div class="container p-3">
+			<h3 class="text-center fst-italic">View Global Notes</h4>
+
+				<div class="row">
+					<div class="col-md-10 offset-md-1" th:each="n,c:${nList}">
+						<div class="card animated-card shadow p-2 mb-3 bg-light rounded">
+
+							<!-- ========= card-header[not needed] ========== -->
+
+							<!-- ========== card-body ============= -->
+							<div class="card-body">
+
+								<div class="text-center">
+									<!--<i class="fa-solid fa-book fa-2x"></i> -->
+									<img src="/images/notes2.png" alt="Photo Address Error" width="55px" height="55px">
+								</div>
+
+								<!-- <p class="fw-bold">[[${c.count}]]. [[${n.title}]]</p> -->
+								<p class="fw-bold">[[${currentPage * 5 + c.count}]]. [[${n.title}]]</p>
+								<p>[[${n.description}]]</p>
+								<p>Publish Date : <span class="fw-bold text-success">[[${n.date}]]</span></p>
+								<p>Published By : <span class="fw-bold text-success">[[${n.user.fullName}]]</span></p>
+
+							</div>
+
+							<!-- ========== card-footer[no needed] ================ -->
+
+						</div>
+
+					</div>
+				</div>
+		</div>
+
+	</section>
+	
+	<!-- ========== Pagination Start ========================= -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+
+				<div class="row">
+					<div class="col-4 col-sm-4">
+						<!-- Total Notes on the left side-->
+						<p class="fw-bold">Total Notes: [[${totalElements}]]</p>
+					</div>
+					<div class="col-6 col-sm-4">
+						<!-- pagination centered-->
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								
+								<li class="page-item" th:if="${currentPage != 0}">
+									<a class="page-link" th:href="@{'/user/viewGlobalNotes?pageNo=' +${currentPage-1}}">Previous</a>
+								</li>
+								
+								
+								<li class="page-item" th:each="i:${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage == i-1 ? 'active' : ''}">
+									<a class="page-link" th:href="@{'/user/viewGlobalNotes?pageNo=' +${i-1}}">[[${i}]]</a>
+								</li>
+										
+								<li class="page-item" th:if="${currentPage+1 != totalPages}">
+									<a class="page-link" th:href="@{'/user/viewGlobalNotes?pageNo=' +${currentPage+1}}">Next</a>
+								</li>
+								
+								
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- ========== Pagination Start ========================= -->
+
+
+
+</body>
+
+</html>

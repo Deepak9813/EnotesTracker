@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="Base::Layout(~{::title}, ~{::section})">
+<!-- <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{ Base::Layout(~{::title}, ~{::section}) }"> -->
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>userProfile</title>
+</head>
+
+<body>
+
+	<section>
+
+		<div class="container p-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+
+					<div class="card mt-5 animated-card">
+						<div class="card-header profile-card-header border">
+							<img src="/images/profile.png" alt="User Profile" class="profile-img header-img">
+							<h4 class="mt-5 mb-1 text-secondary fw-bold">User Profile</h4>
+							
+							<th:block th:if="${session.msg}">
+								<p class="text-center text-success fs-5">[[${session.msg}]]</p>
+
+								<!-- ======= But yo mathi ko message(text) lai remove garna yesto garne ========== -->
+								<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
+
+							</th:block>
+							
+						</div>
+						<div class="card-body">
+							<div class="row mb-3 border-bottom">
+								<div class="col-md-6">
+									<p class="fw-bold">User Id</p>
+									<p>[[${user.id}]]</p>
+								</div>
+								<div class="col-md-6">
+									<p class="fw-bold">Name</p>
+									<p>[[${user.fullName}]]</p>
+								</div>
+							</div>
+							<div class="row mb-3 border-bottom">
+								<div class="col-md-6">
+									<p class="fw-bold">Profession</p>
+									<p>[[${user.profession}]]</p>
+								</div>
+								<div class="col-md-6">
+									<p class="fw-bold">Gender</p>
+									<p>[[${user.gender}]]</p>
+								</div>
+							</div>
+							<div class="row mb-3 border-bottom">
+								<div class="col-md-6">
+									<p class="fw-bold">Email</p>
+									<p>[[${user.email}]]</p>
+								</div>
+								<div class="col-md-6">
+									<p class="fw-bold">Address</p>
+									<p>[[${user.address}]]</p>
+								</div>
+							</div>
+
+
+							<div class="row mb-3">
+								<div class="col-md-6">
+									<a th:href="@{/user/editProfile(id=${user.id})}">
+										<i class="fa-regular fa-pen-to-square fa-2x me-2 text-secondary align-middle"></i>
+										<input type="submit" value="Edit" class="btn btn-primary">
+									</a>
+								</div>
+								<div class="col-md-6">
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+</body>
+
+</html>

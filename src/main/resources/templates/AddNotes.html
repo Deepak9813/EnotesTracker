@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="Base::Layout(~{::title}, ~{::section})">
+<!-- <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{ Base::Layout(~{::title}, ~{::section}) }"> -->
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>addNotes</title>
+</head>
+
+<body>
+
+	<section>
+
+		<div class="container p-3">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<div class="card animated-card">
+
+						<!-- =========== card-header =========== -->
+						<!-- <div class="card-header text-center fs-4">Add Your Notes</div> -->
+						<div class="card-header text-center fst-italic">
+							<h4>Add Your Notes</h4>
+							
+							<th:block th:if="${session.msg}">
+								<p class="text-center text-success fs-5">[[${session.msg}]]</p>
+
+								<!-- ======= But yo mathi ko message(text) lai remove garna yesto garne ========== -->
+								<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
+
+							</th:block>
+							
+						</div>
+
+						<!-- ========== card-body ============= -->
+						<div class="card-body">
+
+							<form action="/user/addNotes" method="post">
+
+								<div class="mb-3">
+									<label class="form-label">Enter Title</label>
+									<input type="text" name="title" class="form-control" required>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label">Enter Description</label>
+									<textarea rows="6" name="description" class="form-control" required></textarea>
+								</div>
+
+								<!--<button class="btn btn-success">Save</button>-->
+								<input type="submit" value="Save" class="btn btn-success">
+
+							</form>
+
+						</div>
+
+						<!-- ========== card-footer[no needed] ================ -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+</body>
+
+</html>

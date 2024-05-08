@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="Base::Layout(~{::title}, ~{::body})">
+<!-- <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{ Base::Layout(~{::title}, ~{::body}) }"> -->
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>login</title>
+</head>
+
+<body>
+
+	<section>
+
+		<div class="container p-3">
+			<div class="row">
+				<div class="col-md-5 offset-md-3">
+					<div class="card animated-card">
+
+						<!--========== card-header ======= -->
+						<!-- <div class="card-header text-center fs-4">Signup Page</div> -->
+						<div class="card-header text-center">
+							<h4>User Login</h4>
+
+							<th:block th:if="${param.error}">
+
+								<!-- <p class="text-center text-danger fs-5">Incorrect email or password..!!</p> -->
+								<p class="text-center text-danger fs-5">
+									[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+
+							</th:block>
+
+							<th:block th:if="${param.logout}">
+
+								<p class="text-center text-success fs-5">Logout Successfully</p>
+
+							</th:block>
+
+							<!-- ==== For Password Change Message ======== -->
+							<th:block th:if="${session.msg}">
+								<p class="text-center text-success fs-5">[[${session.msg}]]</p>
+
+								<!-- ======= But yo mathi ko message(text) lai remove garna yesto garne ========== -->
+								<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
+
+							</th:block>
+
+						</div>
+
+						<!-- ======= card-body ========= -->
+						<div class="card-body">
+
+							<form action="/userLogin" method="post">
+
+								<div class="mb-3">
+									<!-- <label>Enter Email</label> -->
+									<div class="input-group">
+										<span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+										<input type="email" name="username" class="form-control"
+											placeholder="Enter Email" required>
+									</div>
+								</div>
+
+								<div class="mb-1">
+									<!-- <label>Enter Password</label> -->
+									<div class="input-group">
+										<span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+										<input type="password" name="password" class="form-control"
+											placeholder="Enter Password" required>
+
+										<!-- ===== show/hide password ===== -->
+										<button type="button" class="btn btn-outline-secondary"
+											style="border-color: #ccc;" onclick="togglePasswordVisibility(this)">
+											<i class="fa-solid fa-eye-slash"></i>
+										</button>
+
+									</div>
+								</div>
+
+								<!-- ======= Forgot Password link ======= -->
+								<div class="mb-1 fst-italic">
+									<a href="/forgotPassword" class="text-decoration-none">Forgot Password?</a>
+								</div>
+
+
+								<!-- <button class="btn col-md-12" style="background-color: #6A0DAD; color: white;">Login</button> -->
+								<input type="submit" value="Login" class="btn col-md-12"
+									style="background-color: #6A0DAD; color: white;">
+
+							</form>
+
+						</div>
+
+						<!-- ======= card-body[needed] ========= -->
+						<div class="card-footer text-center">
+							<p class="fs-6 mb-2">
+								Don't have an account? <a href="/signup" class="text-decoration-none fst-italic">Signup
+									here!</a>
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+
+
+	<!-- ========= Script Start[for Show/Hide Password] ================ -->
+	<script>
+		function togglePasswordVisibility(button) {
+			var passwordInput = button.previousElementSibling;
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text";
+				button.innerHTML = '<i class="fas fa-eye"></i>';
+			} else {
+				passwordInput.type = "password";
+				button.innerHTML = '<i class="fas fa-eye-slash"></i>';
+			}
+		}
+	</script>
+	<!-- ========= Script End[for Show/Hide Password] ================ -->
+
+
+</body>
+
+</html>
